@@ -1,4 +1,4 @@
-package codingInterview.thread;
+package codeInterview.thread;
 
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;

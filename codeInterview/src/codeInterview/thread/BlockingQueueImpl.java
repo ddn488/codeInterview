@@ -1,4 +1,4 @@
-package codingInterview.thread;
+package codeInterview.thread;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package codingInterview.reflection;
+package codeInterview.reflection;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import org.junit.Test;
 //  The purpose of the factory pattern is to de-couple some code from the run-time type of an object it consumes
 // 
 // Assume that Sport is abstract class
-// And SoccerSport and FootBallSport are subclass of Sport Class in the “codingInterview.reflection” package
+// And SoccerSport and FootBallSport are subclass of Sport Class in the “codeInterview.reflection” package
 
 abstract class Sport {
 	public abstract String toString();
@@ -55,7 +55,7 @@ public class ReflectionFactoryTest {
 
 	public Sport createSportInstance(String name)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		Class<?> clazz = Class.forName("codingInterview.reflection." + name);
+		Class<?> clazz = Class.forName("codeInterview.reflection." + name);
 		return (Sport) clazz.newInstance();
 	}
 }

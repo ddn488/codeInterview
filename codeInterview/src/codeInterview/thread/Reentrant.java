@@ -1,4 +1,4 @@
-package codingInterview.thread;
+package codeInterview.thread;
 
 /**
  * Lock Reentrance

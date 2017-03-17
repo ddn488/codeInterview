@@ -1,4 +1,4 @@
-package codingInterview.thread;
+package codeInterview.thread;
 
 
 public class ThreadJoinExample {
