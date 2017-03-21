@@ -1,0 +1,200 @@
+Interview Zen
+Home
+Create an Interview
+Dennis Nguyen
+Total duration: 116:29
+
+Question 1
+How to find the first (in terms of occurrence in input, not lexicographically) non-repeated character of a given String?
+Write the solution as a Java method, with the following signature:
+  Character firstUniqueChar(String input)
+
+For example:
+  firstUniqueChar("find first non repeated character of a given String")
+should return:
+  ‘s’
+
+PLEASE WRITE IN THIS WINDOW. DO NOT PASTE A READY SOLUTION FROM AN OUTSIDE EDITOR.
+Factors such as correctness, algorithmic complexity, readability, handling of corner cases and time needed to solve the problem will all be assessed. If your solution is making any assumptions please document them.
+static Character firstUniqueChar(String input) {
+                // TreeMap has the order insertion
+                Map<Character, Integer> m = new TreeMap<Character, Integer>();
+                for (int i = 0; i < input.length(); i++) {
+                        char c = input.charAt(i);
+                        if (m.containsKey(Character.valueOf(c))) {
+                                m.put(Character.valueOf(c), Integer.valueOf(m.get(c) + 1));
+                        } else {
+                                m.put(Character.valueOf(c), Integer.valueOf(1));
+                        }
+                }
+
+                
+                Iterator<Character> it = m.keySet().iterator();
+                while (it.hasNext()) {
+                    // Find the first char has the value == 1
+                        Character c = it.next();
+                        if (m.get(c) == 1)
+                                return c;
+
+                }
+
+                return null;
+        }
+0:00 / 36:36
+ 
+play
+1x
+2x
+5x
+Question 2
+Imagine that your peer has asked you to review the code below. Please provide written feedback: What bugs do you see? What should your peer do instead?
+
+DO NOT ATTEMPT TO FIX THE CODE YOURSELF. Instead try to find as many correctness/style/testability/security/structure etc. issues as you can in a reasonable time.
+
+===
+
+/** Updates user records. */
+public class UserRecordUpdater {
+  String database_address;
+
+  public UserRecordUpdater(String databaseAddress) {
+    database_address = databaseAddress;
+  }
+
+  /* Updates user record with new data provided by a user */
+  public void updateUser(String userId, String address, String email) {
+    Database database = new Database(database_address);
+    User userX = database.getUserById(userId);
+    User userY = new User(userId, email, address);
+    if (userX == userY) {
+      // Skipping the update if nothing has really changed.
+      return;
+    }
+    updateUser2(userX);
+  }
+
+  public void updateUser2(User user) {
+    Database database = new Database(database_address);
+    String sql = "UPDATE User set email = '" + user.email + "' address = '" + user.address + 
+        "' where userId = '" + user.userId + "'";
+    database.executeSqlUpdate(sql);
+  }
+
+}
+
+/** Represents a user from the database. */
+class User {
+  String userId; String email; String address;
+  public User(String theUserId, String theAddress, String theEmail) {
+    theUserId = userId;
+    theEmail = email;
+    theAddress = address;
+  }
+}
+1) class User needs to provide the override equal and hashCode methods in order to make comparison User objects work 
+in the line if (userX == userY) {} of the method updateUser
+
+class User {
+   String userId;
+        String email;
+        String address;
+
+        public User(String theUserId, String theAddress, String theEmail) {
+                theUserId = userId;
+                theEmail = email;
+                theAddress = address;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+                if(obj == null) return false;
+                return ((User) obj).userId.equals(this.userId);
+        }
+        
+        @Override
+        public int hashCode() { 
+                return 31  + (null == userId ? 0 : userId.hashCode());          
+        }
+}
+
+2) Check userX object if (userX == null) Insert new record otherwise to update the record
+
+
+    User userX = database.getUserById(userId);
+    if(userX == null) {
+        User userY = new User(userId, email, address);
+        // Call the newUser
+        newUser(userY);
+    }
+    
+    if(userX == userY) return;
+    
+    // update the latest data
+    userX.address = address;
+    userX.email = email;
+    updateUser2(userX);
+    
+    
+    ..
+    // provide newUser method
+    public void newUser(User user) {
+        Database database = new Database(database_address);
+        String sql = "INSERT INTO User(userId, email, address) values(user.userId, user.email, user.address;
+        database.executeSql(sql); 
+    }
+0:00 / 30:49
+ 
+play
+1x
+2x
+5x
+Question 3
+Given a String, find the longest consecutive substring that contains only two unique characters.
+Write the solution as a Java method, with the following signature:
+  String longest2CharacterSubstring(String input)
+
+For example:
+  longest2CharacterSubstring("abcbbbbcccbdddadacb")
+should return
+  "bcbbbbcccb"
+
+PLEASE WRITE IN THIS WINDOW. DO NOT PASTE A READY SOLUTION FROM AN OUTSIDE EDITOR.
+Factors such as correctness, algorithmic complexity, readability, handling of corner cases and time needed to solve the problem will all be assessed. If your solution is making any assumptions please document them.
+static String longest2CharacterSubstring(String input) {
+                return findLongest(input, 2, 0, input.length() - 1);
+        }
+
+        static String findLongest(String input, int maxUniqueChars, int start, int end) {
+                
+                if(input == null) return null;
+                
+                int mid = input.length() / 2;
+                for (int i = start; i < mid; i++) {
+                        for (int j = end; j > mid + 1; j--) {
+                                String sub = input.substring(i, j);
+                                if (nUniqueChars(sub) == maxUniqueChars)
+                                        return sub;
+
+                        }
+                }
+
+                return null;
+
+        }
+
+        static int nUniqueChars(String input) {
+                Set<Character> s = new HashSet<Character>();
+                for (int i = 0; i < input.length(); i++) {
+                        s.add(input.charAt(i));
+                }
+                return s.size();
+        }
+
+}
+0:00 / 48:48
+ 
+play
+1x
+2x
+5x
+© 2017 Interview Zensupport@interviewzen.com
