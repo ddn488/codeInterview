@@ -1,4 +1,4 @@
-package codeInterview.algorithm;
+package codeInterview;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -39,3 +39,4 @@ public class ReverseLinkedList {
 		return result;
 	}
 }
+
